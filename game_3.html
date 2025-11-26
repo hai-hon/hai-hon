@@ -1,0 +1,2667 @@
+<!doctype html>
+<html lang="vi">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài tập HTML Form từng bước</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #2c3e50;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    .wrapper {
+      min-height: 100%;
+      padding: 24px 16px 60px;
+      overflow-y: auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin: 0 0 8px 0;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .header p {
+      font-size: 15px;
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .exercise-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .exercise-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid #667eea;
+    }
+
+    .exercise-number {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .exercise-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      background: #f8f9ff;
+      padding: 10px 16px;
+      border-left: 4px solid #667eea;
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 12px;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .requirement-box {
+      background: #ffffff;
+      border: 2px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+
+    .requirement-box h4 {
+      margin: 0 0 12px 0;
+      color: #2c3e50;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .requirement-box .demo-form {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      margin-top: 12px;
+      line-height: 1.8;
+    }
+
+    .requirement-box label {
+      color: #2c3e50;
+      font-weight: 600;
+    }
+
+    .requirement-box input,
+    .requirement-box select,
+    .requirement-box textarea,
+    .requirement-box button {
+      border: 1px solid #999;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      margin: 0 4px;
+    }
+
+    .requirement-box button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    .syntax-box {
+      background: #f5f7fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #24292f;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    .syntax-box .tag {
+      color: #0550ae;
+      font-weight: 600;
+    }
+
+    .syntax-box .attr {
+      color: #953800;
+    }
+
+    .syntax-box .value {
+      color: #0a3069;
+    }
+
+    .code-editor {
+      position: relative;
+    }
+
+    .code-editor textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 16px;
+      border: 2px solid #cbd5e0;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: vertical;
+      background: #ffffff;
+      color: #2c3e50;
+      transition: border-color 0.3s;
+    }
+
+    .code-editor textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .code-editor textarea:disabled {
+      background: #f1f5f9;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      padding: 10px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-run {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-run:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-clear {
+      background: #e2e8f0;
+      color: #64748b;
+    }
+
+    .btn-clear:hover:not(:disabled) {
+      background: #cbd5e0;
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .preview-box {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      margin-top: 12px;
+      line-height: 1.8;
+      min-height: 150px;
+    }
+
+    .preview-box.has-content {
+      border: 2px solid #cbd5e0;
+      background: #ffffff;
+    }
+
+    .preview-box input[type="text"],
+    .preview-box input[type="password"],
+    .preview-box input[type="tel"],
+    .preview-box input[type="number"],
+    .preview-box select,
+    .preview-box textarea {
+      border: 1px solid #999;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 14px;
+      margin: 0 4px;
+    }
+
+    .preview-box input[type="radio"],
+    .preview-box input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 0 8px 0 0;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+
+    .preview-box label {
+      display: inline-block;
+      margin-top: 8px;
+      font-weight: 500;
+      color: #2c3e50;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+
+    .preview-box button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .preview-box button:hover {
+      background: #5568d3;
+    }
+
+    .preview-box fieldset {
+      border: 2px solid #999;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin: 8px 0;
+    }
+
+    .preview-box legend {
+      padding: 0 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .requirement-box fieldset {
+      border: 2px solid #999;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin: 8px 0;
+    }
+
+    .requirement-box legend {
+      padding: 0 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .preview-placeholder {
+      text-align: center;
+      color: #94a3b8;
+      font-style: italic;
+      padding: 40px 20px;
+    }
+
+    .error-message {
+      background: #fee;
+      border: 2px solid #f44336;
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: #c62828;
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .answer-section {
+      background: #fff9e6;
+      border: 2px solid #ffd700;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .answer-section.show {
+      display: block;
+    }
+
+    .answer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #ffd700;
+    }
+
+    .answer-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .score-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 2px solid #ffd700;
+      margin-left: auto;
+    }
+
+    .star {
+      font-size: 24px;
+      color: #ddd;
+    }
+
+    .star.filled {
+      color: #ffd700;
+    }
+
+    .answer-code {
+      background: #f5f7fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #24292f;
+      overflow-x: auto;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .submit-section {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      margin-top: 32px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .submit-section h2 {
+      font-size: 24px;
+      color: #2c3e50;
+      margin: 0 0 16px 0;
+    }
+
+    .submit-section p {
+      color: #64748b;
+      margin: 0 0 24px 0;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 16px 48px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn-submit:disabled {
+      background: #cbd5e0;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .total-score {
+      margin-top: 24px;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      color: white;
+      display: none;
+    }
+
+    .total-score.show {
+      display: block;
+    }
+
+    .total-score h3 {
+      margin: 0 0 12px 0;
+      font-size: 20px;
+    }
+
+    .total-score .stars {
+      font-size: 32px;
+      letter-spacing: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .wrapper {
+        padding: 16px 12px 60px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .exercise-card {
+        padding: 16px;
+      }
+
+      .exercise-title {
+        font-size: 18px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .btn-submit {
+        padding: 14px 32px;
+        font-size: 16px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body lang="vi">
+  <div class="wrapper">
+   <div class="header">
+    <h1 id="mainTitle">🎓 Bài tập thực hành: Tạo Form HTML từng bước</h1>
+    <p>Làm theo từng bài tập, viết code và chạy thử để xem kết quả!</p>
+   </div>
+   <div class="container"><!-- Exercise 1: Basic Input -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       1
+      </div>
+      <h2 class="exercise-title" id="exercise1Title">Input Type Text</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="hoten">Họ tên:</label> <input id="hoten" type="text" name="ho_ten">
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_input_tương_ứng"</span><span class="tag">&gt;</span>Tên nhãn<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"text"</span> <span class="attr">name</span>=<span class="value">"tên_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code1" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error1"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(1)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(1)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview1">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer1">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star1">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode1"></div>
+     </div>
+    </div><!-- Exercise 2: Password Input -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       2
+      </div>
+      <h2 class="exercise-title" id="exercise2Title">Input Type Password</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="mk">Mật Khẩu:</label> <input type="password" id="mk" value="88888888">
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_input_tương_ứng"</span><span class="tag">&gt;</span>Tên nhãn<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"password"</span> <span class="attr">name</span>=<span class="value">"tên_input"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code2" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error2"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(2)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(2)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview2">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer2">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star2">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode2"></div>
+     </div>
+    </div><!-- Exercise 3: Radio Buttons -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       3
+      </div>
+      <h2 class="exercise-title" id="exercise3Title">Radio Buttons - Chọn size</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label>Chọn size:</label><br><input type="radio" name="size" value="S" id="sizeS"> <label for="sizeS">S</label> <input type="radio" name="size" value="M" id="sizeM" checked> <label for="sizeM">M</label> <input type="radio" name="size" value="L" id="sizeL"> <label for="sizeL">L</label>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_input_tương_ứng"</span><span class="tag">&gt;</span>Tên nhãn<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"radio"</span> <span class="attr">name</span>=<span class="value">"tên_input"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code3" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error3"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(3)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(3)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview3">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer3">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star3">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode3"></div>
+     </div>
+    </div><!-- Exercise 4: Checkbox -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       4
+      </div>
+      <h2 class="exercise-title" id="exercise4Title">Checkbox - Chọn sở thích</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label>Sở thích:</label><br><input type="checkbox" name="hobby" value="music" id="hb1" checked> <label for="hb1">Âm nhạc</label> <input type="checkbox" name="hobby" value="sport" id="hb2"> <label for="hb2">Thể thao</label> <input type="checkbox" name="hobby" value="reading" id="hb3"> <label for="hb3">Đọc sách</label>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_input_tương_ứng"</span><span class="tag">&gt;</span>Tên nhãn<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"checkbox"</span> <span class="attr">name</span>=<span class="value">"tên_input"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code4" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error4"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(4)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(4)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview4">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer4">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star4">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode4"></div>
+     </div>
+    </div><!-- Exercise 5: Select & Option -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       5
+      </div>
+      <h2 class="exercise-title" id="exercise5Title">Select &amp; Option - Chọn thành phố</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="city">Thành phố:</label> <select id="city" name="thanh_pho"> <option value="">-- Chọn --</option> <option value="hn">Hà Nội</option> <option value="hcm" selected>TP.HCM</option> <option value="dn">Đà Nẵng</option> </select>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_select"</span><span class="tag">&gt;</span>Nhãn:<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;select</span> <span class="attr">id</span>=<span class="value">"id_select"</span> <span class="attr">name</span>=<span class="value">"tên_select"</span><span class="tag">&gt;</span><br>
+        &nbsp;&nbsp;<span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="value">"giá_trị"</span> <span class="attr">selected</span><span class="tag">&gt;</span>Text hiển thị<span class="tag">&lt;/option&gt;</span><br><span class="tag">&lt;/select&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code5" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error5"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(5)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(5)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview5">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer5">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star5">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode5"></div>
+     </div>
+    </div><!-- Exercise 6: Textarea -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       6
+      </div>
+      <h2 class="exercise-title" id="exercise6Title">Textarea - Nhập nội dung dài</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ������ Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="message">Lời nhắn:</label><br><textarea id="message" name="loi_nhan" rows="4" cols="30" placeholder="Nhập lời nhắn..."></textarea>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_textarea"</span><span class="tag">&gt;</span>Nhãn:<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;textarea</span> <span class="attr">id</span>=<span class="value">"id_textarea"</span> <span class="attr">name</span>=<span class="value">"tên_textarea"</span> <span class="attr">rows</span>=<span class="value">"4"</span> <span class="attr">cols</span>=<span class="value">"30"</span><span class="tag">&gt;&lt;/textarea&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code6" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error6"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(6)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(6)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview6">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer6">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star6">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode6"></div>
+     </div>
+    </div><!-- Exercise 7: Button -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       7
+      </div>
+      <h2 class="exercise-title" id="exercise7Title">Button - Nút bấm</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><button type="button">Nhấn vào đây</button>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"button"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code7" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error7"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(7)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(7)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 K��t quả hi��n thị
+      </div>
+      <div class="preview-box" id="preview7">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer7">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star7">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode7"></div>
+     </div>
+    </div><!-- Exercise 8: Submit Button -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       8
+      </div>
+      <h2 class="exercise-title" id="exercise8Title">Submit - Nút gửi form</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><button type="submit">Gửi đi</button>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"submit"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code8" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error8"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(8)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(8)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview8">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer8">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star8">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode8"></div>
+     </div>
+    </div><!-- Exercise 9: File Input -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       9
+      </div>
+      <h2 class="exercise-title" id="exercise9Title">Input Type File - Chọn file</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="avatar">Chọn ảnh đại diện:</label><br><input type="file" id="avatar" name="anh_dai_dien" accept="image/*">
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_input"</span><span class="tag">&gt;</span>Nhãn:<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"file"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code9" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error9"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(9)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(9)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview9">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer9">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star9">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode9"></div>
+     </div>
+    </div><!-- Exercise 10: Fieldset -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       10
+      </div>
+      <h2 class="exercise-title" id="exercise10Title">Fieldset - Nhóm thông tin</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form">
+        <fieldset><legend>Thông tin cá nhân</legend> <label for="fullname">Họ tên:</label> <input type="text" id="fullname" name="ho_ten"><br><br><label for="email">Email:</label> <input type="text" id="email" name="email">
+        </fieldset>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;fieldset&gt;</span><br>
+        &nbsp;&nbsp;<span class="tag">&lt;legend&gt;</span>Tiêu đề nhóm<span class="tag">&lt;/legend&gt;</span><br>
+        &nbsp;&nbsp;<span class="comment">...Các input trong nhóm...</span><br><span class="tag">&lt;/fieldset&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code10" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error10"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(10)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(10)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview10">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer10">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star10">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode10"></div>
+     </div>
+    </div><!-- Submit Section -->
+    <div class="submit-section">
+     <h2>🎯 Hoàn thành bài tập</h2>
+     <p>Sau khi hoàn thành tất cả các bài tập, nhấn nút bên dưới để gửi kết quả và xem điểm số!</p><button class="btn-submit" id="submitBtn" onclick="submitExercises()"> 📤 Gửi kết quả </button>
+     <div class="total-score" id="totalScore">
+      <h3>🏆 Kết quả của bạn</h3>
+      <div class="stars" id="totalStars"></div>
+      <p id="scoreMessage" style="margin-top: 12px; font-size: 16px;"></p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      main_title: "🎓 Bài tập thực hành: Tạo Form HTML từng bước",
+      exercise_1_title: "Input Type Text",
+      exercise_2_title: "Input Type Password",
+      exercise_3_title: "Radio Buttons - Ch��n size",
+      exercise_4_title: "Checkbox - Chọn sở thích",
+      exercise_5_title: "Select & Option - Chọn thành phố",
+      exercise_6_title: "Textarea - Nhập nội dung dài",
+      exercise_7_title: "Button - Nút bấm",
+      exercise_8_title: "Submit - Nút gửi form",
+      exercise_9_title: "Input Type File - Chọn file",
+      exercise_10_title: "Fieldset - Nhóm thông tin"
+    };
+
+    async function onConfigChange(config) {
+      document.getElementById('mainTitle').textContent = config.main_title || defaultConfig.main_title;
+      document.getElementById('exercise1Title').textContent = config.exercise_1_title || defaultConfig.exercise_1_title;
+      document.getElementById('exercise2Title').textContent = config.exercise_2_title || defaultConfig.exercise_2_title;
+      document.getElementById('exercise3Title').textContent = config.exercise_3_title || defaultConfig.exercise_3_title;
+      document.getElementById('exercise4Title').textContent = config.exercise_4_title || defaultConfig.exercise_4_title;
+      document.getElementById('exercise5Title').textContent = config.exercise_5_title || defaultConfig.exercise_5_title;
+      document.getElementById('exercise6Title').textContent = config.exercise_6_title || defaultConfig.exercise_6_title;
+      document.getElementById('exercise7Title').textContent = config.exercise_7_title || defaultConfig.exercise_7_title;
+      document.getElementById('exercise8Title').textContent = config.exercise_8_title || defaultConfig.exercise_8_title;
+      document.getElementById('exercise9Title').textContent = config.exercise_9_title || defaultConfig.exercise_9_title;
+      document.getElementById('exercise10Title').textContent = config.exercise_10_title || defaultConfig.exercise_10_title;
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["main_title", config.main_title || defaultConfig.main_title],
+        ["exercise_1_title", config.exercise_1_title || defaultConfig.exercise_1_title],
+        ["exercise_2_title", config.exercise_2_title || defaultConfig.exercise_2_title],
+        ["exercise_3_title", config.exercise_3_title || defaultConfig.exercise_3_title],
+        ["exercise_4_title", config.exercise_4_title || defaultConfig.exercise_4_title],
+        ["exercise_5_title", config.exercise_5_title || defaultConfig.exercise_5_title],
+        ["exercise_6_title", config.exercise_6_title || defaultConfig.exercise_6_title],
+        ["exercise_7_title", config.exercise_7_title || defaultConfig.exercise_7_title],
+        ["exercise_8_title", config.exercise_8_title || defaultConfig.exercise_8_title],
+        ["exercise_9_title", config.exercise_9_title || defaultConfig.exercise_9_title],
+        ["exercise_10_title", config.exercise_10_title || defaultConfig.exercise_10_title]
+      ]);
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    function runCode(exerciseNum) {
+      const codeTextarea = document.getElementById(`code${exerciseNum}`);
+      const previewDiv = document.getElementById(`preview${exerciseNum}`);
+      const errorDiv = document.getElementById(`error${exerciseNum}`);
+      const code = codeTextarea.value.trim();
+
+      errorDiv.style.display = 'none';
+      errorDiv.textContent = '';
+
+      if (!code) {
+        errorDiv.textContent = '⚠️ Vui lòng nhập code HTML trước khi chạy!';
+        errorDiv.style.display = 'block';
+        return;
+      }
+
+      try {
+        previewDiv.innerHTML = code;
+        previewDiv.classList.add('has-content');
+
+        const forms = previewDiv.querySelectorAll('form');
+        forms.forEach(form => {
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            let result = '✅ Form đã được submit!\n\nDữ liệu:\n';
+            for (let [key, value] of formData.entries()) {
+              result += `${key}: ${value}\n`;
+            }
+            
+            const resultDiv = document.createElement('div');
+            resultDiv.style.cssText = 'margin-top: 16px; padding: 12px; background: #d4edda; border: 2px solid #28a745; border-radius: 6px; color: #155724; white-space: pre-line; font-family: monospace; font-size: 13px;';
+            resultDiv.textContent = result;
+            
+            const existing = form.parentElement.querySelector('.form-result');
+            if (existing) existing.remove();
+            resultDiv.className = 'form-result';
+            form.parentElement.appendChild(resultDiv);
+          });
+        });
+
+      } catch (error) {
+        errorDiv.textContent = `❌ Lỗi: ${error.message}`;
+        errorDiv.style.display = 'block';
+        previewDiv.innerHTML = '<div class="preview-placeholder">Code có lỗi, vui lòng kiểm tra lại</div>';
+        previewDiv.classList.remove('has-content');
+      }
+    }
+
+    function clearCode(exerciseNum) {
+      document.getElementById(`code${exerciseNum}`).value = '';
+      const previewDiv = document.getElementById(`preview${exerciseNum}`);
+      previewDiv.innerHTML = '<div class="preview-placeholder">Nhấn "Chạy code" để xem kết quả</div>';
+      previewDiv.classList.remove('has-content');
+      document.getElementById(`error${exerciseNum}`).style.display = 'none';
+    }
+
+    // Đáp án cho các bài tập
+    const answers = {
+      1: `<label for="hoten">Họ tên:</label>
+<input id="hoten" type="text" name="ho_ten">`,
+      2: `<label for="mk">Mật Khẩu:</label>
+<input type="password" id="mk" value="88888888">`,
+      3: `<label>Chọn size:</label><br>
+<input type="radio" name="size" value="S" id="sizeS">
+<label for="sizeS">S</label>
+<input type="radio" name="size" value="M" id="sizeM" checked>
+<label for="sizeM">M</label>
+<input type="radio" name="size" value="L" id="sizeL">
+<label for="sizeL">L</label>`,
+      4: `<label>Sở thích:</label><br>
+<input type="checkbox" name="hobby" value="music" id="hb1" checked>
+<label for="hb1">Âm nhạc</label>
+<input type="checkbox" name="hobby" value="sport" id="hb2">
+<label for="hb2">Thể thao</label>
+<input type="checkbox" name="hobby" value="reading" id="hb3">
+<label for="hb3">Đọc sách</label>`,
+      5: `<label for="city">Thành phố:</label>
+<select id="city" name="thanh_pho">
+  <option value="">-- Chọn --</option>
+  <option value="hn">Hà Nội</option>
+  <option value="hcm" selected>TP.HCM</option>
+  <option value="dn">Đà Nẵng</option>
+</select>`,
+      6: `<label for="message">Lời nhắn:</label><br>
+<textarea id="message" name="loi_nhan" rows="4" cols="30" placeholder="Nhập lời nhắn..."></textarea>`,
+      7: `<button type="button">Nhấn vào đây</button>`,
+      8: `<button type="submit">Gửi đi</button>`,
+      9: `<label for="avatar">Chọn ảnh đại diện:</label><br>
+<input type="file" id="avatar" name="anh_dai_dien" accept="image/*">`,
+      10: `<fieldset>
+  <legend>Thông tin cá nhân</legend>
+  <label for="fullname">Họ tên:</label>
+  <input type="text" id="fullname" name="ho_ten"><br><br>
+  <label for="email">Email:</label>
+  <input type="text" id="email" name="email">
+</fieldset>`
+    };
+
+    function normalizeCode(code) {
+      return code
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .replace(/>\s+</g, '><')
+        .trim();
+    }
+
+    // Hàm loại bỏ giá trị của các thuộc tính for, id, name để so sánh linh hoạt
+    function normalizeForComparison(code) {
+      let normalized = normalizeCode(code);
+      
+      // Thay thế giá trị của for, id, name b���ng placeholder
+      normalized = normalized.replace(/\bfor\s*=\s*["'][^"']*["']/gi, 'for="X"');
+      normalized = normalized.replace(/\bid\s*=\s*["'][^"']*["']/gi, 'id="X"');
+      normalized = normalized.replace(/\bname\s*=\s*["'][^"']*["']/gi, 'name="X"');
+      
+      return normalized;
+    }
+
+    function submitExercises() {
+      let totalScore = 0;
+
+      // Chấm điểm từng bài (từ 1 đến 10)
+      for (let i = 1; i <= 10; i++) {
+        const userCode = document.getElementById(`code${i}`).value.trim();
+        const answer = answers[i];
+        const answerSection = document.getElementById(`answer${i}`);
+        const answerCodeDiv = document.getElementById(`answerCode${i}`);
+        const star = document.getElementById(`star${i}`);
+        
+        // Hiển thị đáp án
+        answerCodeDiv.textContent = answer;
+        answerSection.classList.add('show');
+
+        // So sánh code (bỏ qua khoảng trắng, chữ hoa/thường và giá trị for/id/name)
+        // Phải có code và phải khớp với đáp án
+        const isCorrect = userCode !== '' && normalizeForComparison(userCode) === normalizeForComparison(answer);
+        
+        if (isCorrect) {
+          // Đúng → Sao vàng
+          star.style.color = '#ffd700';
+          totalScore++;
+        } else {
+          // Sai hoặc bỏ trống → Sao xám
+          star.style.color = '#ddd';
+        }
+
+        // Vô hiệu hóa textarea
+        document.getElementById(`code${i}`).disabled = true;
+      }
+
+      // Vô hiệu hóa tất cả nút
+      document.querySelectorAll('.btn-run, .btn-clear').forEach(btn => {
+        btn.disabled = true;
+      });
+
+      // Hiển thị tổng điểm
+      const totalScoreDiv = document.getElementById('totalScore');
+      const totalStarsDiv = document.getElementById('totalStars');
+      const scoreMessage = document.getElementById('scoreMessage');
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Chỉ hiển thị số sao vàng tương ứng với số câu đúng
+      let starsHTML = '';
+      for (let i = 0; i < totalScore; i++) {
+        starsHTML += '⭐';
+      }
+      totalStarsDiv.innerHTML = starsHTML;
+
+      if (totalScore === 10) {
+        scoreMessage.textContent = '🎉 Xuất sắc! Bạn đã hoàn thành tất cả các bài tập!';
+      } else if (totalScore >= 7) {
+        scoreMessage.textContent = '👍 Tốt lắm! Hãy xem lại đáp án để học thêm nhé!';
+      } else if (totalScore >= 4) {
+        scoreMessage.textContent = '💪 Cố gắng lên! So sánh code của bạn với đáp án để cải thiện!';
+      } else {
+        scoreMessage.textContent = '📚 Đọc k�� đáp án và luyện tập thêm nhé!';
+      }
+
+      totalScoreDiv.classList.add('show');
+      submitBtn.disabled = true;
+
+      // Cuộn xuống phần tổng điểm
+      totalScoreDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script><label for="id_input_tương_���ng">Họ t��n:</label> <input id="id_input" type="text" name="tên_input">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài t��p HTML Form từng bước</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #2c3e50;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    .wrapper {
+      min-height: 100%;
+      padding: 24px 16px 60px;
+      overflow-y: auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin: 0 0 8px 0;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .header p {
+      font-size: 15px;
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .exercise-card {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .exercise-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid #667eea;
+    }
+
+    .exercise-number {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .exercise-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      background: #f8f9ff;
+      padding: 10px 16px;
+      border-left: 4px solid #667eea;
+      font-weight: 600;
+      color: #667eea;
+      margin-bottom: 12px;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+
+    .requirement-box {
+      background: #ffffff;
+      border: 2px solid #cbd5e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+
+    .requirement-box h4 {
+      margin: 0 0 12px 0;
+      color: #2c3e50;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .requirement-box .demo-form {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      margin-top: 12px;
+      line-height: 1.8;
+    }
+
+    .requirement-box label {
+      color: #2c3e50;
+      font-weight: 600;
+    }
+
+    .requirement-box input,
+    .requirement-box select,
+    .requirement-box textarea,
+    .requirement-box button {
+      border: 1px solid #999;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      margin: 0 4px;
+    }
+
+    .requirement-box button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    .syntax-box {
+      background: #f5f7fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #24292f;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+
+    .syntax-box .tag {
+      color: #0550ae;
+      font-weight: 600;
+    }
+
+    .syntax-box .attr {
+      color: #953800;
+    }
+
+    .syntax-box .value {
+      color: #0a3069;
+    }
+
+    .code-editor {
+      position: relative;
+    }
+
+    .code-editor textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 16px;
+      border: 2px solid #cbd5e0;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: vertical;
+      background: #ffffff;
+      color: #2c3e50;
+      transition: border-color 0.3s;
+    }
+
+    .code-editor textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .code-editor textarea:disabled {
+      background: #f1f5f9;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      padding: 10px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-run {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-run:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-clear {
+      background: #e2e8f0;
+      color: #64748b;
+    }
+
+    .btn-clear:hover:not(:disabled) {
+      background: #cbd5e0;
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .preview-box {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      margin-top: 12px;
+      line-height: 1.8;
+      min-height: 150px;
+    }
+
+    .preview-box.has-content {
+      border: 2px solid #cbd5e0;
+      background: #ffffff;
+    }
+
+    .preview-box input[type="text"],
+    .preview-box input[type="password"],
+    .preview-box input[type="tel"],
+    .preview-box input[type="number"],
+    .preview-box select,
+    .preview-box textarea {
+      border: 1px solid #999;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 14px;
+      margin: 0 4px;
+    }
+
+    .preview-box input[type="radio"],
+    .preview-box input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin: 0 8px 0 0;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+
+    .preview-box label {
+      display: inline-block;
+      margin-top: 8px;
+      font-weight: 500;
+      color: #2c3e50;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+
+    .preview-box button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .preview-box button:hover {
+      background: #5568d3;
+    }
+
+    .preview-box fieldset {
+      border: 2px solid #999;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin: 8px 0;
+    }
+
+    .preview-box legend {
+      padding: 0 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .requirement-box fieldset {
+      border: 2px solid #999;
+      border-radius: 4px;
+      padding: 12px 16px;
+      margin: 8px 0;
+    }
+
+    .requirement-box legend {
+      padding: 0 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .preview-placeholder {
+      text-align: center;
+      color: #94a3b8;
+      font-style: italic;
+      padding: 40px 20px;
+    }
+
+    .error-message {
+      background: #fee;
+      border: 2px solid #f44336;
+      border-radius: 6px;
+      padding: 12px 16px;
+      color: #c62828;
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .answer-section {
+      background: #fff9e6;
+      border: 2px solid #ffd700;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .answer-section.show {
+      display: block;
+    }
+
+    .answer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #ffd700;
+    }
+
+    .answer-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .score-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 2px solid #ffd700;
+      margin-left: auto;
+    }
+
+    .star {
+      font-size: 24px;
+      color: #ddd;
+    }
+
+    .star.filled {
+      color: #ffd700;
+    }
+
+    .answer-code {
+      background: #f5f7fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #24292f;
+      overflow-x: auto;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .submit-section {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      margin-top: 32px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .submit-section h2 {
+      font-size: 24px;
+      color: #2c3e50;
+      margin: 0 0 16px 0;
+    }
+
+    .submit-section p {
+      color: #64748b;
+      margin: 0 0 24px 0;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 16px 48px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn-submit:disabled {
+      background: #cbd5e0;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .total-score {
+      margin-top: 24px;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      color: white;
+      display: none;
+    }
+
+    .total-score.show {
+      display: block;
+    }
+
+    .total-score h3 {
+      margin: 0 0 12px 0;
+      font-size: 20px;
+    }
+
+    .total-score .stars {
+      font-size: 32px;
+      letter-spacing: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .wrapper {
+        padding: 16px 12px 60px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .exercise-card {
+        padding: 16px;
+      }
+
+      .exercise-title {
+        font-size: 18px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .btn-submit {
+        padding: 14px 32px;
+        font-size: 16px;
+      }
+    }
+  </style>
+  <div class="wrapper">
+   <div class="header">
+    <h1 id="mainTitle">🎓 Bài tập thực hành: Tạo Form HTML từng bước</h1>
+    <p>Làm theo từng bài tập, viết code v�� chạy thử để xem kết quả!</p>
+   </div>
+   <div class="container"><!-- Exercise 1: Basic Input -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       1
+      </div>
+      <h2 class="exercise-title" id="exercise1Title">Input Type Text</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="hoten">Họ tên:</label> <input id="hoten" type="text" name="ho_ten">
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ���� Mẫu cú pháp
+      </div>
+      <div class="syntax-box">
+       &lt;label for="id_input_tương_ứng"&gt;Tên nhãn&lt;/label&gt;<br>
+        &lt;input id="id_input" type="text" name="tên_input"&gt;
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code1" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error1"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(1)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(1)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview1">
+       <div class="preview-placeholder">
+        Nhấn "Ch���y code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer1">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star1">��</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode1"></div>
+     </div>
+    </div><!-- Exercise 2: Password Input -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       2
+      </div>
+      <h2 class="exercise-title" id="exercise2Title">Input Type Password</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="mk">Mật Khẩu:</label> <input type="password" id="mk" value="88888888">
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_input_tương_ứng"</span><span class="tag">&gt;</span>Tên nhãn<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"password"</span> <span class="attr">name</span>=<span class="value">"tên_input"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code2" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error2"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(2)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(2)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview2">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer2">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star2">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode2"></div>
+     </div>
+    </div><!-- Exercise 3: Radio Buttons -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       3
+      </div>
+      <h2 class="exercise-title" id="exercise3Title">Radio Buttons - Chọn size</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label>Chọn size:</label><br><input type="radio" name="size" value="S" id="sizeS"> <label for="sizeS">S</label> <input type="radio" name="size" value="M" id="sizeM" checked> <label for="sizeM">M</label> <input type="radio" name="size" value="L" id="sizeL"> <label for="sizeL">L</label>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_input_tương_ứng"</span><span class="tag">&gt;</span>Tên nhãn<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"radio"</span> <span class="attr">name</span>=<span class="value">"tên_input"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code3" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error3"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(3)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(3)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview3">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer3">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star3">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode3"></div>
+     </div>
+    </div><!-- Exercise 4: Checkbox -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       4
+      </div>
+      <h2 class="exercise-title" id="exercise4Title">Checkbox - Chọn sở thích</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dư���i đây:</h4>
+       <div class="demo-form"><label>Sở thích:</label><br><input type="checkbox" name="hobby" value="music" id="hb1" checked> <label for="hb1">Âm nhạc</label> <input type="checkbox" name="hobby" value="sport" id="hb2"> <label for="hb2">Thể thao</label> <input type="checkbox" name="hobby" value="reading" id="hb3"> <label for="hb3">Đọc sách</label>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_input_tương_ứng"</span><span class="tag">&gt;</span>Tên nhãn<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"checkbox"</span> <span class="attr">name</span>=<span class="value">"tên_input"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code4" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error4"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(4)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(4)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview4">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer4">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star4">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode4"></div>
+     </div>
+    </div><!-- Exercise 5: Select & Option -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       5
+      </div>
+      <h2 class="exercise-title" id="exercise5Title">Select &amp; Option - Chọn thành phố</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="city">Thành phố:</label> <select id="city" name="thanh_pho"> <option value="">-- Chọn --</option> <option value="hn">Hà Nội</option> <option value="hcm" selected>TP.HCM</option> <option value="dn">Đà Nẵng</option> </select>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_select"</span><span class="tag">&gt;</span>Nhãn:<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;select</span> <span class="attr">id</span>=<span class="value">"id_select"</span> <span class="attr">name</span>=<span class="value">"tên_select"</span><span class="tag">&gt;</span><br>
+        &nbsp;&nbsp;<span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="value">"giá_trị"</span> <span class="attr">selected</span><span class="tag">&gt;</span>Text hiển thị<span class="tag">&lt;/option&gt;</span><br><span class="tag">&lt;/select&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code5" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error5"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(5)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(5)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview5">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer5">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star5">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode5"></div>
+     </div>
+    </div><!-- Exercise 6: Textarea -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       6
+      </div>
+      <h2 class="exercise-title" id="exercise6Title">Textarea - Nhập nội dung dài</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="message">L��i nhắn:</label><br><textarea id="message" name="loi_nhan" rows="4" cols="30" placeholder="Nh���p lời nhắn..."></textarea>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="value">"id_textarea"</span><span class="tag">&gt;</span>Nhãn:<span class="tag">&lt;/label&gt;</span><br><span class="tag">&lt;textarea</span> <span class="attr">id</span>=<span class="value">"id_textarea"</span> <span class="attr">name</span>=<span class="value">"tên_textarea"</span> <span class="attr">rows</span>=<span class="value">"4"</span> <span class="attr">cols</span>=<span class="value">"30"</span><span class="tag">&gt;&lt;/textarea&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code6" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error6"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(6)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(6)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview6">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer6">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star6">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode6"></div>
+     </div>
+    </div><!-- Exercise 7: Button -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       7
+      </div>
+      <h2 class="exercise-title" id="exercise7Title">Button - Nút bấm</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><button type="button">Nhấn vào đây</button>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"button"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code7" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error7"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(7)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(7)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview7">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer7">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star7">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode7"></div>
+     </div>
+    </div><!-- Exercise 8: Submit Button -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       8
+      </div>
+      <h2 class="exercise-title" id="exercise8Title">Submit - Nút gửi form</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><button type="submit">Gửi đi</button>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;input</span> <span class="attr">id</span>=<span class="value">"id_input"</span> <span class="attr">type</span>=<span class="value">"submit"</span> <span class="attr">value</span>=<span class="value">"giá_trị_input"</span><span class="tag">&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code8" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error8"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(8)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(8)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview8">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer8">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star8">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode8"></div>
+     </div>
+    </div><!-- Exercise 9: File Input -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       9
+      </div>
+      <h2 class="exercise-title" id="exercise9Title">Input Type File - Chọn file</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form"><label for="avatar">Chọn ảnh đại diện:</label><br><input type="file" id="avatar" name="anh_dai_dien" accept="image/*">
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ���� Mẫu cú pháp
+      </div>
+      <div class="syntax-box">
+       &lt;input id="id_input" type="file"&gt;
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code9" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error9"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(9)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(9)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview9">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer9">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star9">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode9"></div>
+     </div>
+    </div><!-- Exercise 10: Fieldset -->
+    <div class="exercise-card">
+     <div class="exercise-header">
+      <div class="exercise-number">
+       10
+      </div>
+      <h2 class="exercise-title" id="exercise10Title">Fieldset - Nhóm thông tin</h2>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       📋 Yêu cầu
+      </div>
+      <div class="requirement-box">
+       <h4>Tạo form theo mẫu dưới đây:</h4>
+       <div class="demo-form">
+        <fieldset><legend>Thông tin cá nhân</legend> <label for="fullname">Họ tên:</label> <input type="text" id="fullname" name="ho_ten"><br><br><label for="email">Email:</label> <input type="text" id="email" name="email">
+        </fieldset>
+       </div>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       💡 Mẫu cú pháp
+      </div>
+      <div class="syntax-box"><span class="tag">&lt;fieldset&gt;</span><br>
+        &nbsp;&nbsp;<span class="tag">&lt;legend&gt;</span>Tiêu đề nhóm<span class="tag">&lt;/legend&gt;</span><br>
+        &nbsp;&nbsp;<span class="comment">...Các input trong nhóm...</span><br><span class="tag">&lt;/fieldset&gt;</span>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       ✍️ Viết code của bạn
+      </div>
+      <div class="code-editor"><textarea id="code10" placeholder="Viết HTML code ở đây..."></textarea>
+       <div class="error-message" id="error10"></div>
+      </div>
+      <div class="button-group"><button class="btn btn-run" onclick="runCode(10)"> <span>▶</span> Chạy code </button> <button class="btn btn-clear" onclick="clearCode(10)"> 🗑️ Xóa </button>
+      </div>
+     </div>
+     <div class="section">
+      <div class="section-title">
+       👀 Kết quả hiển thị
+      </div>
+      <div class="preview-box" id="preview10">
+       <div class="preview-placeholder">
+        Nhấn "Chạy code" để xem kết quả
+       </div>
+      </div>
+     </div>
+     <div class="answer-section" id="answer10">
+      <div class="answer-header">
+       <h3 class="answer-title">✅ Đáp án</h3>
+       <div class="score-display"><span>Điểm:</span> <span class="star" id="star10">⭐</span>
+       </div>
+      </div>
+      <div class="answer-code" id="answerCode10"></div>
+     </div>
+    </div><!-- Submit Section -->
+    <div class="submit-section">
+     <h2>🎯 Hoàn thành bài tập</h2>
+     <p>Sau khi hoàn thành tất cả các bài tập, nhấn nút bên dưới để gửi kết quả và xem điểm số!</p><button class="btn-submit" id="submitBtn" onclick="submitExercises()"> 📤 Gửi k���t quả </button>
+     <div class="total-score" id="totalScore">
+      <h3>🏆 Kết quả của b���n</h3>
+      <div class="stars" id="totalStars"></div>
+      <p id="scoreMessage" style="margin-top: 12px; font-size: 16px;"></p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      main_title: "🎓 Bài tập thực hành: Tạo Form HTML từng bước",
+      exercise_1_title: "Input Type Text",
+      exercise_2_title: "Input Type Password",
+      exercise_3_title: "Radio Buttons - Chọn size",
+      exercise_4_title: "Checkbox - Chọn sở thích",
+      exercise_5_title: "Select & Option - Chọn thành phố",
+      exercise_6_title: "Textarea - Nhập nội dung dài",
+      exercise_7_title: "Button - Nút bấm",
+      exercise_8_title: "Submit - Nút gửi form",
+      exercise_9_title: "Input Type File - Chọn file",
+      exercise_10_title: "Fieldset - Nhóm thông tin"
+    };
+
+    async function onConfigChange(config) {
+      document.getElementById('mainTitle').textContent = config.main_title || defaultConfig.main_title;
+      document.getElementById('exercise1Title').textContent = config.exercise_1_title || defaultConfig.exercise_1_title;
+      document.getElementById('exercise2Title').textContent = config.exercise_2_title || defaultConfig.exercise_2_title;
+      document.getElementById('exercise3Title').textContent = config.exercise_3_title || defaultConfig.exercise_3_title;
+      document.getElementById('exercise4Title').textContent = config.exercise_4_title || defaultConfig.exercise_4_title;
+      document.getElementById('exercise5Title').textContent = config.exercise_5_title || defaultConfig.exercise_5_title;
+      document.getElementById('exercise6Title').textContent = config.exercise_6_title || defaultConfig.exercise_6_title;
+      document.getElementById('exercise7Title').textContent = config.exercise_7_title || defaultConfig.exercise_7_title;
+      document.getElementById('exercise8Title').textContent = config.exercise_8_title || defaultConfig.exercise_8_title;
+      document.getElementById('exercise9Title').textContent = config.exercise_9_title || defaultConfig.exercise_9_title;
+      document.getElementById('exercise10Title').textContent = config.exercise_10_title || defaultConfig.exercise_10_title;
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["main_title", config.main_title || defaultConfig.main_title],
+        ["exercise_1_title", config.exercise_1_title || defaultConfig.exercise_1_title],
+        ["exercise_2_title", config.exercise_2_title || defaultConfig.exercise_2_title],
+        ["exercise_3_title", config.exercise_3_title || defaultConfig.exercise_3_title],
+        ["exercise_4_title", config.exercise_4_title || defaultConfig.exercise_4_title],
+        ["exercise_5_title", config.exercise_5_title || defaultConfig.exercise_5_title],
+        ["exercise_6_title", config.exercise_6_title || defaultConfig.exercise_6_title],
+        ["exercise_7_title", config.exercise_7_title || defaultConfig.exercise_7_title],
+        ["exercise_8_title", config.exercise_8_title || defaultConfig.exercise_8_title],
+        ["exercise_9_title", config.exercise_9_title || defaultConfig.exercise_9_title],
+        ["exercise_10_title", config.exercise_10_title || defaultConfig.exercise_10_title]
+      ]);
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    function runCode(exerciseNum) {
+      const codeTextarea = document.getElementById(`code${exerciseNum}`);
+      const previewDiv = document.getElementById(`preview${exerciseNum}`);
+      const errorDiv = document.getElementById(`error${exerciseNum}`);
+      const code = codeTextarea.value.trim();
+
+      errorDiv.style.display = 'none';
+      errorDiv.textContent = '';
+
+      if (!code) {
+        errorDiv.textContent = '⚠️ Vui lòng nhập code HTML trước khi chạy!';
+        errorDiv.style.display = 'block';
+        return;
+      }
+
+      try {
+        previewDiv.innerHTML = code;
+        previewDiv.classList.add('has-content');
+
+        const forms = previewDiv.querySelectorAll('form');
+        forms.forEach(form => {
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            let result = '✅ Form đã được submit!\n\nDữ liệu:\n';
+            for (let [key, value] of formData.entries()) {
+              result += `${key}: ${value}\n`;
+            }
+            
+            const resultDiv = document.createElement('div');
+            resultDiv.style.cssText = 'margin-top: 16px; padding: 12px; background: #d4edda; border: 2px solid #28a745; border-radius: 6px; color: #155724; white-space: pre-line; font-family: monospace; font-size: 13px;';
+            resultDiv.textContent = result;
+            
+            const existing = form.parentElement.querySelector('.form-result');
+            if (existing) existing.remove();
+            resultDiv.className = 'form-result';
+            form.parentElement.appendChild(resultDiv);
+          });
+        });
+
+      } catch (error) {
+        errorDiv.textContent = `❌ Lỗi: ${error.message}`;
+        errorDiv.style.display = 'block';
+        previewDiv.innerHTML = '<div class="preview-placeholder">Code có lỗi, vui lòng kiểm tra lại</div>';
+        previewDiv.classList.remove('has-content');
+      }
+    }
+
+    function clearCode(exerciseNum) {
+      document.getElementById(`code${exerciseNum}`).value = '';
+      const previewDiv = document.getElementById(`preview${exerciseNum}`);
+      previewDiv.innerHTML = '<div class="preview-placeholder">Nhấn "Chạy code" để xem kết quả</div>';
+      previewDiv.classList.remove('has-content');
+      document.getElementById(`error${exerciseNum}`).style.display = 'none';
+    }
+
+    // Đáp án cho các bài t���p
+    const answers = {
+      1: `<label for="hoten">Họ tên:</label>
+<input id="hoten" type="text" name="ho_ten">`,
+      2: `<label for="mk">Mật Khẩu:</label>
+<input type="password" id="mk" value="88888888">`,
+      3: `<label>Chọn size:</label><br>
+<input type="radio" name="size" value="S" id="sizeS">
+<label for="sizeS">S</label>
+<input type="radio" name="size" value="M" id="sizeM" checked>
+<label for="sizeM">M</label>
+<input type="radio" name="size" value="L" id="sizeL">
+<label for="sizeL">L</label>`,
+      4: `<label>Sở thích:</label><br>
+<input type="checkbox" name="hobby" value="music" id="hb1" checked>
+<label for="hb1">Âm nhạc</label>
+<input type="checkbox" name="hobby" value="sport" id="hb2">
+<label for="hb2">Thể thao</label>
+<input type="checkbox" name="hobby" value="reading" id="hb3">
+<label for="hb3">Đọc sách</label>`,
+      5: `<label for="city">Thành phố:</label>
+<select id="city" name="thanh_pho">
+  <option value="">-- Chọn --</option>
+  <option value="hn">Hà Nội</option>
+  <option value="hcm" selected>TP.HCM</option>
+  <option value="dn">Đà Nẵng</option>
+</select>`,
+      6: `<label for="message">Lời nhắn:</label><br>
+<textarea id="message" name="loi_nhan" rows="4" cols="30" placeholder="Nhập lời nhắn..."></textarea>`,
+      7: `<button type="button">Nhấn vào đây</button>`,
+      8: `<button type="submit">Gửi đi</button>`,
+      9: `<label for="avatar">Chọn ảnh đại diện:</label><br>
+<input type="file" id="avatar" name="anh_dai_dien" accept="image/*">`,
+      10: `<fieldset>
+  <legend>Thông tin cá nhân</legend>
+  <label for="fullname">Họ tên:</label>
+  <input type="text" id="fullname" name="ho_ten"><br><br>
+  <label for="email">Email:</label>
+  <input type="text" id="email" name="email">
+</fieldset>`
+    };
+
+    function normalizeCode(code) {
+      return code
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .replace(/>\s+</g, '><')
+        .trim();
+    }
+
+    // Hàm loại bỏ giá trị của các thuộc tính for, id, name để so sánh linh hoạt
+    function normalizeForComparison(code) {
+      let normalized = normalizeCode(code);
+      
+      // Thay thế giá trị của for, id, name bằng placeholder
+      normalized = normalized.replace(/\bfor\s*=\s*["'][^"']*["']/gi, 'for="X"');
+      normalized = normalized.replace(/\bid\s*=\s*["'][^"']*["']/gi, 'id="X"');
+      normalized = normalized.replace(/\bname\s*=\s*["'][^"']*["']/gi, 'name="X"');
+      
+      return normalized;
+    }
+
+    function submitExercises() {
+      let totalScore = 0;
+
+      // Chấm điểm từng bài
+      for (let i = 1; i <= 10; i++) {
+        const userCode = document.getElementById(`code${i}`).value.trim();
+        const answer = answers[i];
+        const answerSection = document.getElementById(`answer${i}`);
+        const answerCodeDiv = document.getElementById(`answerCode${i}`);
+        const star = document.getElementById(`star${i}`);
+        
+        // Hiển thị đáp án
+        answerCodeDiv.textContent = answer;
+        answerSection.classList.add('show');
+
+        // So sánh code (bỏ qua khoảng tr���ng, chữ hoa/thường và giá trị for/id/name)
+        // Phải có code và phải khớp với đáp án
+        const isCorrect = userCode !== '' && normalizeForComparison(userCode) === normalizeForComparison(answer);
+        
+        if (isCorrect) {
+          // Đúng → Sao vàng
+          star.style.color = '#ffd700';
+          totalScore++;
+        } else {
+          // Sai hoặc bỏ trống → Sao xám
+          star.style.color = '#ddd';
+        }
+
+        // Vô hiệu hóa textarea và nút
+        document.getElementById(`code${i}`).disabled = true;
+      }
+
+      // Vô hiệu hóa tất cả nút
+      document.querySelectorAll('.btn-run, .btn-clear').forEach(btn => {
+        btn.disabled = true;
+      });
+
+      // Hiển thị tổng điểm
+      const totalScoreDiv = document.getElementById('totalScore');
+      const totalStarsDiv = document.getElementById('totalStars');
+      const scoreMessage = document.getElementById('scoreMessage');
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Chỉ hiển thị số sao vàng tương ứng với số câu đúng
+      let starsHTML = '';
+      for (let i = 0; i < totalScore; i++) {
+        starsHTML += '⭐';
+      }
+      totalStarsDiv.innerHTML = starsHTML;
+
+      if (totalScore === 10) {
+        scoreMessage.textContent = '🎉 Xu���t sắc! Bạn đã hoàn thành tất cả các bài tập!';
+      } else if (totalScore >= 7) {
+        scoreMessage.textContent = '👍 Tốt lắm! Hãy xem lại đáp án để học thêm nhé!';
+      } else if (totalScore >= 4) {
+        scoreMessage.textContent = '💪 Cố gắng lên! So sánh code của bạn với đáp án để cải thiện!';
+      } else {
+        scoreMessage.textContent = '📚 Đọc kỹ đáp án và luyện tập thêm nhé!';
+      }
+
+      totalScoreDiv.classList.add('show');
+      submitBtn.disabled = true;
+
+      // Cuộn xuống phần tổng điểm
+      totalScoreDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a2f9ae8c4a5ddc4',t:'MTc2Mzg4OTc3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
