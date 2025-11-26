@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bảng HTML Form - Material Design</title>
+
+<!-- Font Material Design -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: #f2f4f7;
+        padding: 40px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    th {
+        background: #1976d2;
+        color: white;
+        padding: 14px;
+        text-align: left;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+    }
+
+    td {
+        padding: 12px 14px;
+        border-bottom: 1px solid #e0e6eb;
+        font-size: 14px;
+    }
+
+    tr:hover {
+        background: #f5f9ff;
+    }
+
+    /* Màu block theo nhóm */
+    .group-element {background: #e3f2fd;}     /* xanh nhạt */
+    .group-attr    {background: #e8f5e9;}     /* xanh lá nhạt */
+    .group-type    {background: #fff8e1;}     /* vàng nhạt */
+</style>
+</head>
+<body>
+
+<h2 style="color:#1976d2; font-weight:500; margin-bottom:20px;">
+    Bảng Tổng Hợp HTML Form – Material Design
+</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th style="width: 15%;">Tên</th>
+            <th style="width: 20%;">Loại</th>
+            <th style="width: 35%;">Cú pháp / Ví dụ</th>
+            <th style="width: 30%;">Ý nghĩa / Chức năng</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <!-- ELEMENT GROUP -->
+        <tr class="group-element">
+            <td>label</td>
+            <td>Element</td>
+            <td>&lt;label for="username"&gt;Tên&lt;/label&gt;</td>
+            <td>Mô tả input và liên kết với id.</td>
+        </tr>
+        <tr>
+            <td>input</td>
+            <td>Element</td>
+            <td>&lt;input type="text" id="u" name="u"&gt;</td>
+            <td>Trường nhập dữ liệu.</td>
+        </tr>
+        <tr class="group-element">
+            <td>select</td>
+            <td>Element</td>
+            <td>&lt;select name="country"&gt;...&lt;/select&gt;</td>
+            <td>Hộp chọn.</td>
+        </tr>
+        <tr>
+            <td>option</td>
+            <td>Element</td>
+            <td>&lt;option value="vn"&gt;Việt Nam&lt;/option&gt;</td>
+            <td>Một lựa chọn trong select.</td>
+        </tr>
+        <tr class="group-element">
+            <td>textarea</td>
+            <td>Element</td>
+            <td>&lt;textarea name="note"&gt;&lt;/textarea&gt;</td>
+            <td>Ô nhập văn bản nhiều dòng.</td>
+        </tr>
+        <tr>
+            <td>fieldset</td>
+            <td>Element</td>
+            <td>&lt;fieldset&gt;...&lt;/fieldset&gt;</td>
+            <td>Nhóm các trường.</td>
+        </tr>
+        <tr class="group-element">
+            <td>legend</td>
+            <td>Element</td>
+            <td>&lt;legend&gt;Thông tin&lt;/legend&gt;</td>
+            <td>Tiêu đề cho fieldset.</td>
+        </tr>
+
+        <!-- ATTRIBUTE GROUP -->
+        <tr class="group-attr">
+            <td>for</td>
+            <td>Thuộc tính</td>
+            <td>&lt;label for="email"&gt;Email&lt;/label&gt;</td>
+            <td>Liên kết đến input có id.</td>
+        </tr>
+        <tr>
+            <td>type</td>
+            <td>Thuộc tính</td>
+            <td>&lt;input type="text"&gt;</td>
+            <td>Định nghĩa loại input.</td>
+        </tr>
+        <tr class="group-attr">
+            <td>id</td>
+            <td>Thuộc tính</td>
+            <td>&lt;input id="username"&gt;</td>
+            <td>Định danh duy nhất.</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>Thuộc tính</td>
+            <td>&lt;input name="username"&gt;</td>
+            <td>Tên của biến khi submit.</td>
+        </tr>
+        <tr class="group-attr">
+            <td>value</td>
+            <td>Thuộc tính</td>
+            <td>&lt;input value="Giá trị"&gt;</td>
+            <td>Giá trị mặc định / gửi đi.</td>
+        </tr>
+
+        <!-- INPUT TYPE GROUP -->
+        <tr class="group-type">
+            <td>text</td>
+            <td>Input type</td>
+            <td>&lt;input type="text"&gt;</td>
+            <td>Ô nhập text 1 dòng.</td>
+        </tr>
+        <tr>
+            <td>password</td>
+            <td>Input type</td>
+            <td>&lt;input type="password"&gt;</td>
+            <td>Ẩn ký tự khi nhập.</td>
+        </tr>
+        <tr class="group-type">
+            <td>checkbox</td>
+            <td>Input type</td>
+            <td>&lt;input type="checkbox"&gt;</td>
+            <td>Nhiều lựa chọn.</td>
+        </tr>
+        <tr>
+            <td>radio</td>
+            <td>Input type</td>
+            <td>&lt;input type="radio" name="gender"&gt;</td>
+            <td>Chọn 1 trong nhiều mục.</td>
+        </tr>
+        <tr class="group-type">
+            <td>submit</td>
+            <td>Input type</td>
+            <td>&lt;input type="submit" value="Gửi"&gt;</td>
+            <td>Nút gửi form.</td>
+        </tr>
+        <tr>
+            <td>button</td>
+            <td>Input type</td>
+            <td>&lt;input type="button" value="Click"&gt;</td>
+            <td>Nút bấm thường.</td>
+        </tr>
+        <tr class="group-type">
+            <td>file</td>
+            <td>Input type</td>
+            <td>&lt;input type="file"&gt;</td>
+            <td>Chọn tệp cần upload.</td>
+        </tr>
+
+    </tbody>
+</table>
+
+</body>
+</html>
